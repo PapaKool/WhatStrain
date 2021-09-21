@@ -36,7 +36,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = e.read()
   
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
-  print(bssearch)
+  # print(bssearch)
   if "Internal Server Error" in bssearch.body.get_text():
     return None
 
