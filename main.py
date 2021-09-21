@@ -35,6 +35,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = urlopen(link)  # Grab html
   except HTTPError as e:
     info = e.read()
+    print(info)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
   if "Internal Server Error" in bssearch.body.get_text():
     return None
