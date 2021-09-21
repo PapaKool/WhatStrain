@@ -39,7 +39,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   if "Internal Server Error" in bssearch.body.get_text():
     return None
 
-  result = str(bssearch.body.find_all('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'})[0].find('a',href=re.compile("/strains/"))['href'])
+  result = str(bssearch.body.find_next('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'})[0].find('a',href=re.compile("/strains/"))['href'])
   print(result)
   link = Request('https://www.leafly.com' + result, headers={'User-Agent': 'Mozilla/5.0'})
 
