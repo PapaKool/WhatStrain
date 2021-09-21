@@ -36,6 +36,8 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   except HTTPError as e:
     info = e.read()
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
+  if "Internal Server Error" in bsinfo.body.get_text():
+    return None
 
   result = str(bssearch.body.find('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
   print(result)
@@ -50,8 +52,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = e.read()
   bsinfo = bs(info, 'html.parser')  # Converts to BeautifulSoup object
   
-  if "Internal Server Error" in bsinfo.body.get_text():
-    return None
+  
 
   thisstrain = strainclass()
 
