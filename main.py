@@ -26,14 +26,15 @@ class strainclass:
     self.uses = 'Unknown'
 
 async def getstraininfo(query):  # Gets variables to plug into the DM
+  link = Request("https://www.leafly.com/search?q=" + query + "&searchCategory=strain", headers={'User-Agent': 'Mozilla/5.0'})
+  
+  print(link)
+
   try:
-    link = Request("https://www.leafly.com/search?q=" + query + "&searchCategory=strain", headers={'User-Agent': 'Mozilla/5.0'})
+    info = urlopen(link)  # Grab html
   except HTTPError as e:
     content = e.read()
     print(content)
-  print(link)
-
-  info = urlopen(link)  # Grab html
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
 
   result = str(bssearch.body.find('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
