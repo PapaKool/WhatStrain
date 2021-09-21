@@ -34,7 +34,6 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   try:
     info = urlopen(link)  # Grab html
   except HTTPError as e:
-    print(e)
     info = e.read()
     print(content)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
@@ -49,9 +48,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   try:
     info = urlopen(link)  # Grab html
   except HTTPError as e:
-    print(e)
     info = e.read()
-    print(content)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
 
   thisstrain = strainclass()
