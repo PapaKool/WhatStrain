@@ -35,13 +35,13 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = urlopen(link)  # Grab html
   except HTTPError as e:
     info = e.read()
-    print(info)
+  print(info)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
   if "Internal Server Error" in bssearch.body.get_text():
     return None
 
   result = str(bssearch.body.find_next('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
-  print(bssearch.body.find_all('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}))
+  # print(bssearch.body.find_all('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}))
   link = Request('https://www.leafly.com' + result, headers={'User-Agent': 'Mozilla/5.0'})
 
 
