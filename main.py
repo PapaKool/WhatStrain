@@ -131,7 +131,7 @@ async def makemessage(channel, straininfo, strain):
     await channel.send('Strain \'**' + strain.replace('%20', ' ') + '**\' not found.')
     return
   newEmbed = discord.Embed(title=straininfo.name, description=straininfo.desc)
-  print(straininfo.image)
+  print(straininfo.image, footer='Strain info provided (unwillingly) by Leafly.com')
   newEmbed.set_image(url=straininfo.image)
   
   bar = '['
