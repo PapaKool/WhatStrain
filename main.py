@@ -35,7 +35,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = urlopen(link)  # Grab html
   except HTTPError as e:
     info = e.read()
-    print(content)
+    print(info)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
 
   result = str(bssearch.body.find('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
