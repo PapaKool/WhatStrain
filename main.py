@@ -40,7 +40,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     return None
 
   result = str(bssearch.body.find_next('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
-  print(result)
+  print(bssearch.body.find_all('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}))
   link = Request('https://www.leafly.com' + result, headers={'User-Agent': 'Mozilla/5.0'})
 
 
