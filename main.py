@@ -44,8 +44,6 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   link = Request('https://www.leafly.com' + result, headers={'User-Agent': 'Mozilla/5.0'})
 
 
-
-
   try:
     info = urlopen(link)  # Grab html
   except HTTPError as e:
@@ -86,6 +84,9 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   print(thisstrain)
   return thisstrain
 
+ 
+ 
+ 
 class WikiBluff(discord.Client):
   def __init__(self, *args, **kwargs):
       super().__init__(*args, **kwargs)
@@ -110,7 +111,7 @@ class WikiBluff(discord.Client):
       
       
       straininfo = await getstraininfo(strain)
-      await makemessage(message.channel, straininfo)
+      await makemessage(message.channel, straininfo, strain)
     else:
       return
 
@@ -124,10 +125,10 @@ def isint(string):
   else:
     return True
 
-async def makemessage(channel, straininfo):
+async def makemessage(channel, straininfo, strain):
   global runninggames
   if straininfo == None:
-    await channel.send('Strain not found')
+    await channel.send('Strain \'**' + strain.replace('%20', ' ') + '**\' not found.')
     return
   newEmbed = discord.Embed(title=straininfo.name, description=straininfo.desc)
   print(straininfo.image)
