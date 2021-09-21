@@ -1,6 +1,2 @@
 discord
-os
-asyncio
-re
-urllib.request
-bs4
+beautifulsoup4
