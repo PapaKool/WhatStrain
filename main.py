@@ -66,20 +66,20 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     thisstrain.image = 'http' + img[1] + 'png'
 
   thisstrain.desc = str(bsinfo.body.find('div', itemprop='description').get_text()) 
-  thisstrain.variety = str(bsinfo.body.find('div', {"class":'flex-1 py-sm text-center text-sm rounded-l-full font-bold border-green text-grey'})) 
-  thisstrain.thc = str(bsinfo.body.find(string=re.compile("THC"))) 
+  #thisstrain.variety = str(bsinfo.body.find('div', {"class":'flex-1 py-sm text-center text-sm rounded-l-full font-bold border-green text-grey'})) 
+  #thisstrain.thc = str(bsinfo.body.find(string=re.compile("THC"))) 
   # cbd = str(bsinfo.body.find(string=re.compile("CBD")))
   # cbg =  str(bsinfo.body.find(string=re.compile("CBG")))
-  thisstrain.terps = str(bsinfo.body.find(string=re.compile("The most abundant terpene")))
-  flavorelements = bsinfo.body.find('div', {"class":"jsx-2865998862 flavor-list pt-md mt-md inline-block lg:flex"}).find_all('a',href=re.compile('strains/lists/flavor'))
+  # thisstrain.terps = str(bsinfo.body.find(string=re.compile("The most abundant terpene")))
+  # flavorelements = bsinfo.body.find('div', {"class":"jsx-2865998862 flavor-list pt-md mt-md inline-block lg:flex"}).find_all('a',href=re.compile('strains/lists/flavor'))
   flavs = ''
-  for ele in flavorelements:
-    flavs = flavs + ele.get_text() + '\n'
+  # for ele in flavorelements:
+  #   flavs = flavs + ele.get_text() + '\n'
 
   thisstrain.flavors = flavs
-  print(thisstrain.flavors)
-  thisstrain.effects = bsinfo.body.find_all(string=re.compile('strains/lists/effect'))
-  thisstrain.uses = bsinfo.body.find_all(string=re.compile('strains/lists/condition'))
+  #print(thisstrain.flavors)
+  #thisstrain.effects = bsinfo.body.find_all(string=re.compile('strains/lists/effect'))
+  #thisstrain.uses = bsinfo.body.find_all(string=re.compile('strains/lists/condition'))
   
   print(thisstrain)
   return thisstrain
