@@ -50,6 +50,9 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
   except HTTPError as e:
     info = e.read()
   bsinfo = bs(info, 'html.parser')  # Converts to BeautifulSoup object
+  
+  if bsinfo.body.find('h3',string=re.compile("Strains")) == None:
+    return None
 
   thisstrain = strainclass()
 
@@ -123,7 +126,9 @@ def isint(string):
 
 async def makemessage(channel, straininfo):
   global runninggames
-  
+  if straininfo == None:
+    await channel.send('Strain not found')
+    return
   newEmbed = discord.Embed(title=straininfo.name, description=straininfo.desc)
   print(straininfo.image)
   newEmbed.set_image(url=straininfo.image)
@@ -145,6 +150,7 @@ async def makemessage(channel, straininfo):
   #newEmbed.add_field(name = 'Uses', value = straininfo.uses, inline = True)
 
   await channel.send(embed=newEmbed)
+  return
 
 
 
