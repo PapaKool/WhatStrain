@@ -4,6 +4,7 @@ import asyncio
 import re
 
 from urllib.request import urlopen, Request
+from urllib.error import HTTPError
 from bs4 import BeautifulSoup as bs
 
  
@@ -32,7 +33,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
 
   try:
     info = urlopen(link)  # Grab html
-  except urllib.error.HTTPError as e:
+  except HTTPError as e:
     content = e.read()
     print(content)
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
