@@ -7,8 +7,7 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup as bs
 
- 
-# runninggames = {0 : None}
+
 class strainclass:
 
   def __init__(self):
@@ -35,8 +34,9 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = urlopen(link)  # Grab html
   except HTTPError as e:
     info = e.read()
-  print(info)
+  
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
+  print(bssearch)
   if "Internal Server Error" in bssearch.body.get_text():
     return None
 
