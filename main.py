@@ -26,7 +26,7 @@ class strainclass:
     self.uses = 'Unknown'
 
 async def getstraininfo(query):  # Gets variables to plug into the DM
-  link = Request("https://www.leafly.com/search?q=" + query + "&searchCategory=strain", headers={'User-Agent': 'Mozilla/5.0'})
+  link = Request("https://www.leafly.com/search?q=" + query + "&searchCategory=strain") # , headers={'User-Agent': 'Mozilla/5.0'}
   print(link)
 
   info = urlopen(link)  # Grab html
@@ -34,7 +34,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
 
   result = str(bssearch.body.find('div', {'class':'relative flex flex-col justify-between bg-white h-full elevation-low'}).find('a',href=re.compile("/strains/"))['href'])
   print(result)
-  link = Request('https://www.leafly.com' + result, headers={'User-Agent': 'Mozilla/5.0'})
+  link = Request('https://www.leafly.com' + result) # , headers={'User-Agent': 'Mozilla/5.0'}
 
 
 
