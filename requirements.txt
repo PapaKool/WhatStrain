@@ -23,8 +23,6 @@ pywin32-ctypes==0.2.0
 PyYAML==3.13
 raven==6.10.0
 raven-aiohttp==0.7.0
-Red-DiscordBot==3.0.2
-Red-Lavalink==0.2.3
 schema==0.6.8
 soupsieve==1.8
 typing-extensions==3.10.0.0
