@@ -50,7 +50,7 @@ async def getstraininfo(query):  # Gets variables to plug into the DM
     info = e.read()
   bsinfo = bs(info, 'html.parser')  # Converts to BeautifulSoup object
   
-  if bsinfo.body.find_all(string=re.compile("Internal Server Error")):
+  if "Internal Server Error" in bsinfo.body.get_text():
     return None
 
   thisstrain = strainclass()
