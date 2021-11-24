@@ -24,7 +24,7 @@ async def leafsearch(query):  # Gets variables to plug into the DM
   for result in results:
     newstrain = resultclass()
     newstrain.name = result.find(itemprop='name').get_text()
-    if result.find(class_='text-xs truncate text-grey').get_text().strip() is not '':
+    if result.find(class_='text-xs truncate text-grey').get_text().strip() != '':
       newstrain.name += ' (' + result.find(class_='text-xs truncate text-grey').get_text().strip() + ')'
     while len(newstrain.name) < 60:
       newstrain.name += ' '
