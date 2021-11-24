@@ -1,4 +1,4 @@
 discord
 beautifulsoup4
 discord_interactions
-discord-py-slash-commands
+discord_py_slash_commands
