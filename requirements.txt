@@ -1,4 +1,4 @@
 discord
 beautifulsoup4
-discord-interactions
-discord-slash
+discord_interactions
+discord_slash
