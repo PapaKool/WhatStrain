@@ -23,7 +23,6 @@ slash = SlashCommand(WhatStrain, sync_commands=True)
 
 @slash.slash(
   name='seedfinder',
-  guild_ids=[885339477160124416],
   description='Search for a strain in the SeedFinder database',
   options=[
     create_option(
@@ -44,7 +43,6 @@ async def _seedfinder(ctx, strain:str):
 
 @slash.slash(
   name='leafly',
-  guild_ids=[885339477160124416],
   description='Search for a strain in the Leafly database',
   options=[
     create_option(
@@ -66,7 +64,6 @@ async def _leafly(ctx, strain:str):
 
 @slash.slash(
   name='leaflysearch',
-  guild_ids=[885339477160124416],
   description='Allows you to choose from a list of possible strain matches',
   options=[
     create_option(
@@ -103,4 +100,4 @@ async def sfselect(ctx: ComponentContext):
     await ctx.send(embed=newEmbed)
 
 
-WhatStrain.run(os.environ.get(TOKEN))
+WhatStrain.run(os.environ.get('TOKEN'))
