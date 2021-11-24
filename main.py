@@ -103,4 +103,4 @@ async def sfselect(ctx: ComponentContext):
     await ctx.send(embed=newEmbed)
 
 
-WhatStrain.run(TOKEN)
+WhatStrain.run(os.environ.get(TOKEN))
