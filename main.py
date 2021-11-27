@@ -193,5 +193,4 @@ async def right(ctx: ComponentContext):
 #   await ctx.edit_origin(embed=searches[ctx.origin_message_id].embed, components=searches[ctx.origin_message_id].select[searches[ctx.origin_message_id].index])
 
 
-token = 'ODg5Nzg0ODQzMTE2ODc5OTAy.YUmStg.JEO7d1C43ttzc8vzzqHHcSXwERA'
-WhatStrain.run(token)
+WhatStrain.run(os.environ.get('TOKEN'))
