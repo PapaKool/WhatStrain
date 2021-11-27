@@ -34,7 +34,7 @@ async def on_ready():
 @slash.slash(
   name='seedfinder',
   description='Search for a strain in the SeedFinder database',
-  guild_ids=[885339477160124416],
+  guild_ids=[885339477160124416, 765254440717385759],
   options=[
     create_option(
       name='strain',
