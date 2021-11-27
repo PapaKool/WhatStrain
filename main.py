@@ -34,7 +34,7 @@ async def on_ready():
 @slash.slash(
   name='seedfinder',
   description='Search for a strain in the SeedFinder database',
-  guild_ids=[885339477160124416, 765254440717385759],
+  # guild_ids=[885339477160124416, 765254440717385759],
   options=[
     create_option(
       name='strain',
@@ -100,7 +100,7 @@ async def _leaflysearch(ctx, strain:str):
 
 @slash.slash(
   name='invite',
-  guild_ids=[885339477160124416],
+  # guild_ids=[885339477160124416],
   description='Sends a link allowing you to invite WhatStrain to your server')
 
 async def invite(ctx: ComponentContext):
@@ -109,7 +109,7 @@ async def invite(ctx: ComponentContext):
 
 @slash.slash(
   name='help',
-  guild_ids=[885339477160124416, 765254440717385759, 913857013577043968],
+  # guild_ids=[885339477160124416, 765254440717385759, 913857013577043968],
   description='Provides an overview of available commands')
 
 async def _help(ctx):
