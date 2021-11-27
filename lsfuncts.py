@@ -57,7 +57,7 @@ async def leaflysearchmessage(ctx, searchinfo, strain):
       if loop == len(searchinfo) + 1:
         body = body + '\n**End of results**'
       count = 1
-      select = create_select(options=options, placeholder='Select a strain option from the list above', custom_id='sfselect', min_values=1, max_values=1)
+      select = create_select(options=options, placeholder='Select a strain option from the list above', custom_id='lsselect', min_values=1, max_values=1)
       newEmbed.description = body
       await ctx.send(embed=newEmbed, components=[create_actionrow(select)])
       newEmbed.clear_fields()

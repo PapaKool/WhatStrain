@@ -1,12 +1,17 @@
-class messages:
+from discord import Embed
+
+
+class msgclass:
 
   def __init__(self):
     
     self.message = ''
     self.author = ''
-    self.results = ''
+    self.embed = Embed()
+    self.results = []
+    self.select = []
     self.limit = 0
-    self.sindex = 0
+    self.index = 0
 
 
 class resultclass:
@@ -41,3 +46,10 @@ class strainclass:
     self.effects = 'Unknown'
     self.neg = 'Unknown'
     self.uses = 'Unknown'
+
+
+class settingclass:
+
+  def __init__(self):
+    
+    self.threadat = 0
