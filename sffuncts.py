@@ -23,8 +23,7 @@ async def sfsearchmessage(ctx, searchinfo, strain, breeder, searches):
       await msg.edit(content=f'Strain \'**{strain}**\' not found.')
     else:
       await msg.edit(content=f'Strain \'**{strain}**\' by \'*{breeder}*\' not found.')
-    
-    return
+    return searches
   # with open('settings.pk1', 'rb') as file:
   #   settings = pickle.load(file)
   # threaded = False
