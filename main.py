@@ -54,7 +54,8 @@ async def _seedfinder(ctx, strain:str, breeder=None):
   await ctx.defer()
   searchinfo = await sfinfo(strain, breeder)
   # await ctx.send('')
-  searches = await sfsearchmessage(ctx, searchinfo, strain, breeder, searches)
+  searches1 = await sfsearchmessage(ctx, searchinfo, strain, breeder, searches)
+  searches = searches1
   # msglst[mid.id].author = message.author.id
   # msglst[mid.id].results
 
