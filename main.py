@@ -89,6 +89,7 @@ async def _seedfinder(ctx, strain:str, breeder=None):
       required=True)],)
 
 async def _leafly(ctx, strain:str):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -113,6 +114,7 @@ async def _leafly(ctx, strain:str):
       required=True)],)
 
 async def _leaflysearch(ctx, strain:str):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -130,6 +132,7 @@ async def _leaflysearch(ctx, strain:str):
   description='Sends a link allowing you to invite WhatStrain to your server')
 
 async def invite(ctx: ComponentContext):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -142,6 +145,7 @@ async def invite(ctx: ComponentContext):
   description='Provides an overview of available commands')
 
 async def _help(ctx):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -170,6 +174,7 @@ async def _help(ctx):
   )
 
 async def settings_botchannel(ctx: ComponentContext, channel=None):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -209,6 +214,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
 
 async def settings_botchannelreset(ctx: ComponentContext):
   
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
@@ -233,6 +239,7 @@ async def settings_botchannelreset(ctx: ComponentContext):
     )])
 
 async def settings_bugreport(ctx: ComponentContext, bug=None):
+  await ctx.defer()
   perms = await permscheck(ctx)
   if perms:
     return
