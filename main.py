@@ -25,7 +25,7 @@ slash = SlashCommand(WhatStrain, sync_commands=True)
 
 # breeders = getbreeders()
 
-@WhatStrain.event
+#@WhatStrain.event
 async def on_ready():
   global settings
   with open('settings.pk1', 'rb') as file:
@@ -41,7 +41,7 @@ async def on_ready():
     pickle.dump(settings, file)
   return
 
-@WhatStrain.event
+#@WhatStrain.event
 async def on_guild_join(guild):
   global settings
   with open('settings.pk1', 'rb') as file:
