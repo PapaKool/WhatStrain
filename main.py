@@ -330,7 +330,7 @@ async def right(ctx: ComponentContext):
 #   searches[ctx.origin_message_id].index = ctx.selected_options[0] - 1
 #   searches[ctx.origin_message_id].embed.description = searches[ctx.origin_message_id].results[searches[ctx.origin_message_id].index]
 #   await ctx.edit_origin(embed=searches[ctx.origin_message_id].embed, components=searches[ctx.origin_message_id].select[searches[ctx.origin_message_id].index])
-def permscheck(ctx):
+async def permscheck(ctx):
   if ctx.channel.permissions_for(ctx.author).administrator != True and settings[ctx.guild.id].whitelist != [] and ctx.channel not in settings[ctx.guild.id].whitelist:
     channels = ''
     for chan in settings[ctx.guild.id].whitelist:
