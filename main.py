@@ -7,6 +7,7 @@ import os
 import asyncio
 import re
 import pickle
+import psycopg2
 
 from wsclasses import *
 from sffuncts import *
@@ -254,18 +255,23 @@ async def settings_bugreport(ctx: ComponentContext, bug=None):
 # ========================================================
 
 
-# @slash.slash(
-#   name='threadresponses',
-#   guild_ids=[913857013577043968],
-#   description='Allows you to set when the bot will respond in a thread (/help for more info)',
-#   options=[create_option(
-#     name='messagecount',
-#     description='Number of msgs to thread at',
-#     option_type=4,
-#     choices=choices,
-#     required=True)])
+@slash.slash(
+  name='maketable',
+  guild_ids=[913857013577043968],
+  description='make table',
+ )
 
-# async def threadresponses(ctx, messagecount: int):
+async def maketable(ctx):
+  conn = psycopg2.connect("dbname=d422h8t6acgu4q user=ziqyvqtuhtuebx password=4666b5e6cc0a2a0dc05b2ac7baf9803ad5bec7eaa81411cbd550c847d2088d0c")
+  cur = conn.cursor()
+  pickled = pickle.dumps(settings)
+  cur.execute('CREATE TABLE settingstable (settings BLOB)')
+  cur.execute('INSERT INTO settingstable (%s)', [pickled])
+  conn.commit()
+  cur.close()
+  conn.close()
+  print('done')
+
 #   print(1)
 #   if ctx.channel.permissions_for(ctx.author).administrator != True:
 #     await ctx.send(f'Sorry, {ctx.author}, you don\'t have permission to use this command.')
