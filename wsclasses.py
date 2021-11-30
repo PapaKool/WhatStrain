@@ -52,4 +52,4 @@ class settingclass:
 
   def __init__(self):
     
-    self.threadat = 0
+    self.whitelist = []

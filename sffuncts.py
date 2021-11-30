@@ -23,6 +23,7 @@ async def sfsearchmessage(ctx, searchinfo, strain, breeder, searches):
       await msg.edit(content=f'Strain \'**{strain}**\' not found.')
     else:
       await msg.edit(content=f'Strain \'**{strain}**\' by \'*{breeder}*\' not found.')
+    
     return searches
   # with open('settings.pk1', 'rb') as file:
   #   settings = pickle.load(file)
@@ -150,10 +151,9 @@ async def sfinfo(query, breeder):  # Gets variables to plug into the DM
   except HTTPError as e:
     info = e.read()
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
-  try:
-    result = bssearch.body.find('table').find_all('tr', class_='hell') #.find('a',href=re.compile("/strains/"))['href'])
-  except AttributeError:
-    return []
+
+  result = bssearch.body.find('table').find_all('tr', class_='hell') #.find('a',href=re.compile("/strains/"))['href'])
+
   slist = []
   for key in result:
     newstrain = resultclass()
