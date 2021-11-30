@@ -256,18 +256,16 @@ async def settings_bugreport(ctx: ComponentContext, bug=None):
 
 
 @slash.slash(
-  name='maketable',
+  name='gettable',
   guild_ids=[913857013577043968],
   description='make table',
  )
 
-async def maketable(ctx):
+async def gettable(ctx):
   conn = conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
   cur = conn.cursor()
-  pickled = pickle.dumps(settings)
-  cur.execute('CREATE TABLE settingstable (settings BYTEA)')
-  cur.execute('INSERT INTO settingstable VALUES (%s)', [pickled])
-  conn.commit()
+  cur.execute('SELECT * FROM settingstable;')
+  print(conn.fetchone())
   cur.close()
   conn.close()
   print('done')
