@@ -265,7 +265,7 @@ async def gettable(ctx):
   conn = conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
   cur = conn.cursor()
   cur.execute('SELECT * FROM settingstable;')
-  print(cur.fetchone())
+  print(pickle.loads(cur.fetchone()))
   cur.close()
   conn.close()
   print('done')
