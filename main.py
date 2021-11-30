@@ -27,9 +27,7 @@ slash = SlashCommand(WhatStrain, sync_commands=True)
 
 # @WhatStrain.event
 async def on_ready():
-  global settings
-  with open('settings.pk1', 'rb') as file:
-    settings = pickle.load(file)
+  settings = await getsettings()
   for guild in WhatStrain.guilds:
     try:
       settings[guild.id]
@@ -37,21 +35,17 @@ async def on_ready():
       settings[guild.id] = settingclass()
   print('ready')
   await WhatStrain.change_presence(activity=Activity(type=ActivityType.watching, name="/help"))
-  with open('settings.pk1', 'wb') as file:
-    pickle.dump(settings, file)
+  await setsettings(settings)
   return
 
 # @WhatStrain.event
 async def on_guild_join(guild):
-  global settings
-  with open('settings.pk1', 'rb') as file:
-    settings = pickle.load(file)
+  settings = await getsettings()
   try:
     settings[guild.id]
   except KeyError:
     settings[guild.id] = settingclass()
-  with open('settings.pk1', 'wb') as file:
-    pickle.dump(settings, file)
+  await setsettings(settings)
 
 @slash.slash(
   name='seedfinder',
@@ -171,7 +165,6 @@ async def _help(ctx):
   )
 
 async def settings_botchannel(ctx: ComponentContext, channel=None):
-  global settings
   if permscheck(ctx):    
     return
   if ctx.channel.permissions_for(ctx.author).administrator != True:
@@ -198,8 +191,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
   else:
     settings[ctx.guild.id].whitelist.append(channel.id)
     await ctx.send(f'Added to whitelist. You may now use commands in {channel.mention}')
-  with open('settings.pk1', 'wb') as file:
-    pickle.dump(settings, file)
+  await setsettings(settings)
 
 
 @slash.subcommand(
@@ -210,7 +202,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
   )
 
 async def settings_botchannelreset(ctx: ComponentContext):
-  global settings
+  
   if permscheck(ctx):    
     return
   
@@ -219,8 +211,7 @@ async def settings_botchannelreset(ctx: ComponentContext):
     return
   settings[ctx.guild.id].whitelist = []
   await ctx.send('Botchannel list reset. The bot will now operate in all channels')
-  with open('settings.pk1', 'wb') as file:
-    pickle.dump(settings, file)
+  await setsettings(settings)
 
 @slash.subcommand(
   base='settings',
@@ -255,21 +246,33 @@ async def settings_bugreport(ctx: ComponentContext, bug=None):
 # ========================================================
 
 
-@slash.slash(
-  name='gettable',
-  guild_ids=[913857013577043968],
-  description='make table',
- )
+# @slash.slash(
+#   name='gettable',
+#   guild_ids=[913857013577043968],
+#   description='make table',
+#  )
 
-async def gettable(ctx):
-  conn = conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+async def getsettings():
+  conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
   cur = conn.cursor()
   cur.execute('SELECT * FROM settingstable;')
+  unpickled = pickle.loads(cur.fetchone()[0]
+  print(unpickled))
+  cur.close()
+  conn.close()
+  print('done')
+  return unpickled
+
+async def setsettings(settings):
+  global settings
+  conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+  cur = conn.cursor()
+  pickled = pickle.dumps(settings)
+  cur.execute('UPDATE settingstable SET settings=%s;', [pickled])
   print(pickle.loads(cur.fetchone()[0]))
   cur.close()
   conn.close()
   print('done')
-
 #   print(1)
 #   if ctx.channel.permissions_for(ctx.author).administrator != True:
 #     await ctx.send(f'Sorry, {ctx.author}, you don\'t have permission to use this command.')
