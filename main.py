@@ -343,8 +343,8 @@ async def permscheck(ctx):
     for chan in settings[ctx.guild.id].whitelist:
       channels += '\n' + WhatStrain.get_channel(chan).mention
     await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
-    return False
-  else:
     return True
+  else:
+    return False
 
 WhatStrain.run(os.environ.get('TOKEN'))
