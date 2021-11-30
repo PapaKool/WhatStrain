@@ -263,13 +263,14 @@ async def getsettings():
   print('done')
   return unpickled
 
-async def setsettings(settings):
+async def setsettings(localsettings):
   global settings
   conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
   cur = conn.cursor()
-  pickled = pickle.dumps(settings)
+  pickled = pickle.dumps(localsettings)
   cur.execute('UPDATE settingstable SET settings=%s;', [pickled])
-  print(pickle.loads(cur.fetchone()[0]))
+  settings = pickle.loads(cur.fetchone()[0])
+  print(settings)
   cur.close()
   conn.close()
   print('done')
