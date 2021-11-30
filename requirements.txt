@@ -2,3 +2,4 @@ discord
 beautifulsoup4
 discord_interactions
 discord_py_interactions
+psycopg2-binary
