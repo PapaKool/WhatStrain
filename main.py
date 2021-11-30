@@ -256,8 +256,8 @@ async def getsettings():
   conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
   cur = conn.cursor()
   cur.execute('SELECT * FROM settingstable;')
-  unpickled = pickle.loads(cur.fetchone()[0]
-  print(unpickled))
+  unpickled = pickle.loads(cur.fetchone()[0])
+  print(unpickled)
   cur.close()
   conn.close()
   print('done')
