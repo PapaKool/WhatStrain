@@ -262,7 +262,7 @@ async def settings_bugreport(ctx: ComponentContext, bug=None):
  )
 
 async def maketable(ctx):
-  conn = psycopg2.connect("dbname=d422h8t6acgu4q user=ziqyvqtuhtuebx password=4666b5e6cc0a2a0dc05b2ac7baf9803ad5bec7eaa81411cbd550c847d2088d0c")
+  conn = psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
   cur = conn.cursor()
   pickled = pickle.dumps(settings)
   cur.execute('CREATE TABLE settingstable (settings BLOB)')
