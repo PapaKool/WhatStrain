@@ -25,7 +25,7 @@ slash = SlashCommand(WhatStrain, sync_commands=True)
 
 # breeders = getbreeders()
 
-# @WhatStrain.event
+@WhatStrain.event
 async def on_ready():
   settings = await getsettings()
   for guild in WhatStrain.guilds:
@@ -38,7 +38,7 @@ async def on_ready():
   await setsettings(settings)
   return
 
-# @WhatStrain.event
+@WhatStrain.event
 async def on_guild_join(guild):
   settings = await getsettings()
   try:
