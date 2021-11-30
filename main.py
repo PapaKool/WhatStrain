@@ -95,7 +95,6 @@ async def _leafly(ctx, strain:str):
     return
   strain = strain.strip()
   print(strain)
-  await ctx.defer()
   searchresult = await leaflyinfo(strain)
   if searchresult is None:
     await ctx.send('Sorry, I couldn\'t find any strains matching *\"'+strain+'\"*')
@@ -120,7 +119,6 @@ async def _leaflysearch(ctx, strain:str):
     return
   strain = strain.strip()
   print(strain)
-  await ctx.defer()
   searchinfo = await leafsearch(strain)
   if searchinfo is None:
     await ctx.send('Sorry, I couldn\'t find any strains matching *\"'+strain+'\"*')
