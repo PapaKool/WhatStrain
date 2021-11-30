@@ -50,7 +50,7 @@ async def on_guild_join(guild):
 @slash.slash(
   name='seedfinder',
   description='Search for a strain in the SeedFinder database',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   options=[
     create_option(
       name='strain',
@@ -128,7 +128,7 @@ async def _leaflysearch(ctx, strain:str):
 
 @slash.slash(
   name='invite',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   description='Sends a link allowing you to invite WhatStrain to your server')
 
 async def invite(ctx: ComponentContext):
@@ -141,7 +141,7 @@ async def invite(ctx: ComponentContext):
 
 @slash.slash(
   name='help',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   description='Provides an overview of available commands')
 
 async def _help(ctx):
@@ -162,7 +162,7 @@ async def _help(ctx):
 
 @slash.subcommand(
   base='settings',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   name='botchannel',
   description='Restricts the bot to one (or more) channel(s). Use reset:true to enable in all channels',
   options=[create_option(
@@ -207,7 +207,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
 
 @slash.subcommand(
   base='settings',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   name='botchannelreset',
   description='Restricts the bot to one (or more) channel(s). Use reset:true to enable in all channels'
   )
@@ -229,7 +229,7 @@ async def settings_botchannelreset(ctx: ComponentContext):
 @slash.subcommand(
   base='settings',
   name='bugreport',
-  guild_ids=[913857013577043968],
+  # guild_ids=[913857013577043968],
   description='Use this to report a bug (this will be posted publically on the offical server)',
   options=[create_option(
     name='bug',
