@@ -89,8 +89,8 @@ async def _seedfinder(ctx, strain:str, breeder=None):
       required=True)],)
 
 async def _leafly(ctx, strain:str):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   strain = strain.strip()
   print(strain)
@@ -113,8 +113,8 @@ async def _leafly(ctx, strain:str):
       required=True)],)
 
 async def _leaflysearch(ctx, strain:str):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   strain = strain.strip()
   print(strain)
@@ -130,8 +130,8 @@ async def _leaflysearch(ctx, strain:str):
   description='Sends a link allowing you to invite WhatStrain to your server')
 
 async def invite(ctx: ComponentContext):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   await ctx.send('Use this link to invite <@889784843116879902> to your server:\n\nhttps://discord.com/api/oauth2/authorize?client_id=889784843116879902&permissions=2048&scope=bot%20applications.commands')
   return
@@ -142,8 +142,8 @@ async def invite(ctx: ComponentContext):
   description='Provides an overview of available commands')
 
 async def _help(ctx):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   newEmbed = discord.Embed(title='WhatStrain Help')
   newEmbed.add_field(name='/seedfinder `strain` `breeder(optional)`', value='Searches SeedFinder.eu for a strain. Can optionally be narrowed by breeder name. Note that SeedFinder limits the max number of results to 420.', inline=False)
@@ -170,8 +170,8 @@ async def _help(ctx):
   )
 
 async def settings_botchannel(ctx: ComponentContext, channel=None):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   if ctx.channel.permissions_for(ctx.author).administrator != True:
     await ctx.send(f'Sorry, {ctx.author.mention}, only administrators can use this command.', hidden=True)
@@ -209,8 +209,8 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
 
 async def settings_botchannelreset(ctx: ComponentContext):
   
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   
   if ctx.channel.permissions_for(ctx.author).administrator != True:
@@ -233,8 +233,8 @@ async def settings_botchannelreset(ctx: ComponentContext):
     )])
 
 async def settings_bugreport(ctx: ComponentContext, bug=None):
-  if permscheck(ctx):
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  permscheck = await permscheck(ctx)
+  if permscheck:
     return
   if bug == None:
     await ctx.send('You must describe the bug you want to report.', hidden=True)
@@ -335,6 +335,7 @@ def permscheck(ctx):
     channels = ''
     for chan in settings[ctx.guild.id].whitelist:
       channels += '\n' + WhatStrain.get_channel(chan).mention
+    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
     return False
   else:
     return True
