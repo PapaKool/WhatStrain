@@ -65,8 +65,9 @@ async def on_guild_join(guild):
 
 async def _seedfinder(ctx, strain:str, breeder=None):
   global searches
-  if permscheck(ctx):  
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
+  await ctx.defer()
+  perms = await permscheck(ctx)
+  if perms:
     return
 
   strain = strain.strip()
