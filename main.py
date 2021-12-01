@@ -72,7 +72,6 @@ async def _seedfinder(ctx, strain:str, breeder=None):
 
   strain = strain.strip()
   print(strain)
-  await ctx.defer()
   searchinfo = await sfinfo(strain, breeder)
   # await ctx.send('')
   searches = await sfsearchmessage(ctx, searchinfo, strain, breeder, searches)
