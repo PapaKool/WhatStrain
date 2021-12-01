@@ -151,9 +151,10 @@ async def sfinfo(query, breeder):  # Gets variables to plug into the DM
   except HTTPError as e:
     info = e.read()
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
-
-  result = bssearch.body.find('table').find_all('tr', class_='hell') #.find('a',href=re.compile("/strains/"))['href'])
-
+  try:
+    result = bssearch.body.find('table').find_all('tr', class_='hell') #.find('a',href=re.compile("/strains/"))['href'])
+  except AttributeError:
+    return []
   slist = []
   for key in result:
     newstrain = resultclass()
