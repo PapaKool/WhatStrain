@@ -66,7 +66,7 @@ async def on_guild_join(guild):
 async def _seedfinder(ctx, strain:str, breeder=None):
   global searches
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, False)
   if perms:
     return
 
@@ -90,7 +90,7 @@ async def _seedfinder(ctx, strain:str, breeder=None):
 
 async def _leafly(ctx, strain:str):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, False)
   if perms:
     return
   strain = strain.strip()
@@ -114,7 +114,7 @@ async def _leafly(ctx, strain:str):
 
 async def _leaflysearch(ctx, strain:str):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, False)
   if perms:
     return
   strain = strain.strip()
@@ -131,7 +131,7 @@ async def _leaflysearch(ctx, strain:str):
 
 async def invite(ctx: ComponentContext):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, False)
   if perms:
     return
   await ctx.send('Use this link to invite <@889784843116879902> to your server:\n\nhttps://discord.com/api/oauth2/authorize?client_id=889784843116879902&permissions=2048&scope=bot%20applications.commands')
@@ -144,7 +144,7 @@ async def invite(ctx: ComponentContext):
 
 async def _help(ctx):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, False)
   if perms:
     return
   newEmbed = discord.Embed(title='WhatStrain Help')
@@ -173,7 +173,7 @@ async def _help(ctx):
 
 async def settings_botchannel(ctx: ComponentContext, channel=None):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, True)
   if perms:
     return
   if ctx.channel.permissions_for(ctx.author).administrator != True:
@@ -213,7 +213,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
 async def settings_botchannelreset(ctx: ComponentContext):
   
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, True)
   if perms:
     return
   
@@ -238,7 +238,7 @@ async def settings_botchannelreset(ctx: ComponentContext):
 
 async def settings_bugreport(ctx: ComponentContext, bug=None):
   await ctx.defer()
-  perms = await permscheck(ctx)
+  perms = await permscheck(ctx, True)
   if perms:
     return
   if bug == None:
@@ -335,14 +335,17 @@ async def right(ctx: ComponentContext):
 #   searches[ctx.origin_message_id].index = ctx.selected_options[0] - 1
 #   searches[ctx.origin_message_id].embed.description = searches[ctx.origin_message_id].results[searches[ctx.origin_message_id].index]
 #   await ctx.edit_origin(embed=searches[ctx.origin_message_id].embed, components=searches[ctx.origin_message_id].select[searches[ctx.origin_message_id].index])
-async def permscheck(ctx):
-  if ctx.channel.permissions_for(ctx.author).administrator != True and settings[ctx.guild.id].whitelist != [] and ctx.channel not in settings[ctx.guild.id].whitelist:
+async def permscheck(ctx, ismodcommand):
+  if ctx.channel.permissions_for(ctx.author).administrator != True and ismodcommand == True:
+    ctx.send(content=f'Sorry, {ctx.author.mention}, this command requires administrator permission.)
+    return False
+  if settings[ctx.guild.id].whitelist != [] and ctx.channel not in settings[ctx.guild.id].whitelist:
     channels = ''
     for chan in settings[ctx.guild.id].whitelist:
       channels += '\n' + WhatStrain.get_channel(chan).mention
-    await ctx.send(hidden=True, content=f'Commands are not allowed in this channel. Please use: \n{channels}')
-    return True
-  else:
+    await ctx.send(content=f'Commands are not allowed in this channel. Please use: \n{channels}', hidden=True)
     return False
+  else:
+    return True
 
 WhatStrain.run(os.environ.get('TOKEN'))
