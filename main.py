@@ -337,13 +337,13 @@ async def right(ctx: ComponentContext):
 #   await ctx.edit_origin(embed=searches[ctx.origin_message_id].embed, components=searches[ctx.origin_message_id].select[searches[ctx.origin_message_id].index])
 async def permscheck(ctx, ismodcommand):
   if ctx.channel.permissions_for(ctx.author).administrator != True and ismodcommand == True:
-    ctx.send(content=f'Sorry, {ctx.author.mention}, this command requires administrator permission.)
+    ctx.send(content=f'Sorry {ctx.author.mention}, this command requires administrator permission.')
     return False
   if settings[ctx.guild.id].whitelist != [] and ctx.channel not in settings[ctx.guild.id].whitelist:
     channels = ''
     for chan in settings[ctx.guild.id].whitelist:
       channels += '\n' + WhatStrain.get_channel(chan).mention
-    await ctx.send(content=f'Commands are not allowed in this channel. Please use: \n{channels}', hidden=True)
+    await ctx.send(content=f'Sorry {ctx.author.mention}, commands are not allowed in this channel. Please use: \n{channels}', hidden=True)
     return False
   else:
     return True
