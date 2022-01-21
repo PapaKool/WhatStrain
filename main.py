@@ -65,7 +65,7 @@ async def on_guild_join(guild):
 
 async def _seedfinder(ctx, strain:str, breeder=None):
   global searches
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, False)
   if perms == False:
     return
@@ -89,7 +89,7 @@ async def _seedfinder(ctx, strain:str, breeder=None):
       required=True)],)
 
 async def _leafly(ctx, strain:str):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, False)
   if perms == False:
     return
@@ -113,7 +113,7 @@ async def _leafly(ctx, strain:str):
       required=True)],)
 
 async def _leaflysearch(ctx, strain:str):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, False)
   if perms == False:
     return
@@ -130,7 +130,7 @@ async def _leaflysearch(ctx, strain:str):
   description='Sends a link allowing you to invite WhatStrain to your server')
 
 async def invite(ctx: ComponentContext):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, False)
   if perms == False:
     return
@@ -143,7 +143,7 @@ async def invite(ctx: ComponentContext):
   description='Provides an overview of available commands')
 
 async def _help(ctx):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, False)
   if perms == False:
     return
@@ -172,12 +172,12 @@ async def _help(ctx):
   )
 
 async def settings_botchannel(ctx: ComponentContext, channel=None):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, True)
   if perms == False:
     return
   if ctx.channel.permissions_for(ctx.author).administrator != True:
-    await ctx.send(f'Sorry, {ctx.author.mention}, only administrators can use this command.', hidden=True)
+    await ctx.send(f'Sorry, {ctx.author.mention}, only administrators can use this command.')
 
   if channel == None:
     newEmbed = Embed(title='Channel Whitelist', description='The bot will currently function in the following channels:\n\n')
@@ -189,7 +189,7 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
     await ctx.send(embed=newEmbed)
     return
   elif type(channel).__name__ != 'TextChannel':
-    await ctx.send(f'Cannot add {channel.mention} to whitelist, because it is not a text channel.', hidden=True)
+    await ctx.send(f'Cannot add {channel.mention} to whitelist, because it is not a text channel.')
     return
   elif channel.id in settings[ctx.guild.id].whitelist:
     settings[ctx.guild.id].whitelist.remove(channel.id)
@@ -212,13 +212,13 @@ async def settings_botchannel(ctx: ComponentContext, channel=None):
 
 async def settings_botchannelreset(ctx: ComponentContext):
   
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, True)
   if perms == False:
     return
   
   if ctx.channel.permissions_for(ctx.author).administrator != True:
-    await ctx.send(f'Sorry, {ctx.author.mention}, only administrators can use this command.', hidden=True)
+    await ctx.send(f'Sorry, {ctx.author.mention}, only administrators can use this command.')
     return
   settings[ctx.guild.id].whitelist = []
   await ctx.send('Botchannel list reset. The bot will now operate in all channels')
@@ -237,12 +237,12 @@ async def settings_botchannelreset(ctx: ComponentContext):
     )])
 
 async def settings_bugreport(ctx: ComponentContext, bug=None):
-  await ctx.defer(hidden=True)
+  await ctx.defer()
   perms = await permscheck(ctx, True)
   if perms == False:
     return
   if bug == None:
-    await ctx.send('You must describe the bug you want to report.', hidden=True)
+    await ctx.send('You must describe the bug you want to report.')
     return
   else:
     newEmbed = Embed()
@@ -339,11 +339,11 @@ async def permscheck(ctx, ismodcommand):
   if ctx.channel.permissions_for(ctx.author).administrator != True and ismodcommand == True:
     ctx.send(content=f'Sorry {ctx.author.mention}, this command requires administrator permission.')
     return False
-  if settings[ctx.guild.id].whitelist != [] and ctx.channel not in settings[ctx.guild.id].whitelist:
+  if settings[ctx.guild.id].whitelist != [] and ctx.channel.id not in settings[ctx.guild.id].whitelist:
     channels = ''
     for chan in settings[ctx.guild.id].whitelist:
       channels += '\n' + WhatStrain.get_channel(chan).mention
-    await ctx.send(content=f'Sorry {ctx.author.mention}, commands are not allowed in this channel. Please use: \n{channels}', hidden=True)
+    await ctx.send(content=f'Sorry {ctx.author.mention}, commands are not allowed in this channel. Please use: \n{channels}')
     return False
   else:
     return True
