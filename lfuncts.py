@@ -27,7 +27,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
 
   # results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
-  results = search(f'{query.lower()} site:leafly.com/strains')
+  results = search(term=f'{query.lower()} site:leafly.com/strains', advanced=True)
   for result in results:
     
     
