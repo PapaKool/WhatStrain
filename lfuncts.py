@@ -62,7 +62,7 @@ async def leaflyresultmessage(ctx, link):
     desc = '*(aka:* ***' + aka + '*** *)*\n\n' + '__**Description:**__\n\n' + bssearch.find('div', itemprop='description').get_text()
   except AttributeError:
     desc = '__**Description:**__\n' + bssearch.find('div', itemprop='description').get_text()
-  weedpic = bssearch.find('div', class_='jsx-1012626707 h-full w-full').img['srcset'].split('?', 1)[0]
+  weedpic = bssearch.find('picture', data-testid='image-picture-element').img['srcset'].split('?', 1)[0]
 
 
   newEmbed = discord.Embed(title=name, url=url)
