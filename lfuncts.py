@@ -26,8 +26,9 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
 
   results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
+  print(results)
   for result in results:
-    print(result)
+    
     
     if query.lower() == result.find(itemprop='name').get_text().lower():
       return 'https://www.leafly.com' + result.a['href']
