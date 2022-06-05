@@ -4,3 +4,4 @@ discord_interactions
 discord_py_interactions
 psycopg2-binary
 googlesearch-python
+discord-py-slash-command
