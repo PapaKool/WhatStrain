@@ -1,5 +1,5 @@
 from discord import Client, Intents, Embed, Activity, ActivityType
-import discord_interactions as interactions
+import interactions
 from interactions.utils.manage_commands import create_option, create_choice
 from interactions.utils.manage_components import *
 import os
