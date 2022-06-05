@@ -12,7 +12,7 @@ helplist = ['ADD/ADHD', 'Alzheimer\'s', 'Anorexia', 'Anxiety', 'Arthritis', 'Ast
 
 
 async def leaflyinfo(query):  # Gets search results and returns message embed
-  link = Request("https://www.leafly.com/search?q=" + quote_plus(query) + "&searchCategory=strain", headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.64'})
+  link = Request("https://www.leafly.com/search?q=" + quote_plus(query) + "&searchCategory=strain", headers={'Accept': 'text/html', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.64'})
   print(quote_plus(query))
   try:
     info = urlopen(link)  # Grab html
@@ -24,7 +24,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
   if bssearch.head.title.get_text() == '500: Internal Server Error':
     return None
 
-  results = bssearch.find_all(class_='h-full elevation-low rounded')
+  results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
   for result in results:
     print(result)
@@ -46,7 +46,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
 async def leaflyresultmessage(ctx, link):
 
   url = link
-  link = Request(url=link, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 OPR/79.0.4143.50'})
+  link = Request(url=link, headers={'Accept': 'text/html','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 OPR/79.0.4143.50'})
   try:
     info = urlopen(link)  # Grab html
   except HTTPError as e:
