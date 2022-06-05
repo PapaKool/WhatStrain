@@ -5,6 +5,7 @@ from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 from urllib.parse import urlencode, quote_plus
 from bs4 import BeautifulSoup as bs
+from googlesearch import search
 
 feelingslist = ['Aroused', 'Creative', 'Energetic', 'Euphoric', 'Focused', 'Giggly', 'Happy', 'Hungry', 'Relaxed', 'Sleepy', 'Talkative', 'Tingly', 'Uplifted']
 neglist = ['Anxious', 'Dizzy', 'Dry eyes', 'Dry mouth', 'Headache', 'Paranoid']
@@ -12,33 +13,28 @@ helplist = ['ADD/ADHD', 'Alzheimer\'s', 'Anorexia', 'Anxiety', 'Arthritis', 'Ast
 
 
 async def leaflyinfo(query):  # Gets search results and returns message embed
-  link = Request("https://www.leafly.com/search?q=" + quote_plus(query) + "&searchCategory=strain", headers={'Accept': 'text/html', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.64'})
-  print(quote_plus(query))
-  try:
-    info = urlopen(link)  # Grab html
-  except HTTPError as e:
-    info = e.read()
+  #link = Request("https://www.leafly.com/search?q=" + quote_plus(query) + "&searchCategory=strain", headers={'Accept': 'text/html', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.64'})
+  #print(quote_plus(query))
+  #try:
+  #  info = urlopen(link)  # Grab html
+  #except HTTPError as e:
+  #  info = e.read()
   
-  bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
-  print(bssearch)
-  if bssearch.head.title.get_text() == '500: Internal Server Error':
-    return None
+  #bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
+  #print(bssearch)
+  #if bssearch.head.title.get_text() == '500: Internal Server Error':
+  #  return None
 
-  results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
+  # results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
+  results search(f'{query.lower()} site:leafly.com/strains')
   for result in results:
     
     
-    if query.lower() == result.find(itemprop='name').get_text().lower():
-      return 'https://www.leafly.com' + result.a['href']
+    if query.lower() in result.title:
+      return result.url
       # If the strain name matches the query exactly (except case)
-    elif query.lower() in result.find(class_='text-xs truncate text-grey').get_text().lower():
-      return 'https://www.leafly.com' + result.a['href']
-      # If the query is in the alternate names for a strain
-    elif query.lower() in result.find(itemprop='name').get_text().lower():
-      return 'https://www.leafly.com' + result.a['href']
-      # If the query is part of a strain name
-  return 'https://www.leafly.com' + results[0].a['href']
+  return results[0].url
   # If the above three fail, just return the first result
 
   
