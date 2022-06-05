@@ -1,7 +1,8 @@
 from discord import Client, Intents, Embed, Activity, ActivityType
-import interactions
-from interactions.utils.manage_commands import create_option, create_choice
-from interactions.utils.manage_components import *
+import discord_interactions as interactions
+from discord_slash import SlashCommand, SlashContext
+from discord_slash.utils.manage_commands import create_option, create_choice
+from discord_slash.utils.manage_components import *
 import os
 import asyncio
 import re
