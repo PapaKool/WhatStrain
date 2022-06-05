@@ -27,6 +27,8 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
   results = bssearch.find_all(class_='h-full elevation-low rounded')
   # Grabs each 'box''s div element
   for result in results:
+    print(result)
+    
     if query.lower() == result.find(itemprop='name').get_text().lower():
       return 'https://www.leafly.com' + result.a['href']
       # If the strain name matches the query exactly (except case)
@@ -36,7 +38,6 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
     elif query.lower() in result.find(itemprop='name').get_text().lower():
       return 'https://www.leafly.com' + result.a['href']
       # If the query is part of a strain name
-  print(results)
   return 'https://www.leafly.com' + results[0].a['href']
   # If the above three fail, just return the first result
 
