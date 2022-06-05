@@ -35,6 +35,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
       
       return result.url
       # If the strain name matches the query exactly (except case)
+  print(results[0].url)
   return results[0].url
   # If the above three fail, just return the first result
 
