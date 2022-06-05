@@ -56,7 +56,7 @@ async def leaflyresultmessage(ctx, link):
 
   name = bssearch.find('h1', itemprop='name').get_text()
   aka = bssearch.find('h2', itemprop='name')
-  
+  print(bssearch)
   try:
     aka = aka.get_text().replace('aka','').strip()
     desc = '*(aka:* ***' + aka + '*** *)*\n\n' + '__**Description:**__\n\n' + bssearch.find('div', itemprop='description').get_text()
