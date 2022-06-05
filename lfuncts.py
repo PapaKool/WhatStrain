@@ -20,13 +20,12 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
     info = e.read()
   
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
-  
+  print(bssearch)
   if bssearch.head.title.get_text() == '500: Internal Server Error':
     return None
 
   results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
-  print(results)
   for result in results:
     
     
