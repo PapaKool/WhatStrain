@@ -24,7 +24,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
   if bssearch.head.title.get_text() == '500: Internal Server Error':
     return None
 
-  results = bssearch.find_all('relative flex flex-col justify-between bg-white h-full elevation-low rounded')
+  results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
   for result in results:
     if query.lower() == result.find(itemprop='name').get_text().lower():
