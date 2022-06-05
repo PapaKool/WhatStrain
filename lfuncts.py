@@ -28,15 +28,18 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
   # results = bssearch.find_all(class_='relative flex flex-col justify-between bg-white h-full elevation-low rounded')
   # Grabs each 'box''s div element
   results = search(term=f'{query.lower()} site:leafly.com/strains', num_results=3, advanced=True)
+  isset = False
   for result in results:
     print(result.title)
-    
+    if not isset:
+      isset=True
+      rslt = result.url
     if query.lower() in result.title:
       
       return result.url
       # If the strain name matches the query exactly (except case)
-  print(results[0].url)
-  return results[0].url
+  print(rslt)
+  return rslt
   # If the above three fail, just return the first result
 
   
