@@ -20,6 +20,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
     info = e.read()
   
   bssearch = bs(info, 'html.parser')  # Converts to BeautifulSoup object
+  print(bssearch.prettify())
   if bssearch.head.title.get_text() == '500: Internal Server Error':
     return None
 
