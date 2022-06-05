@@ -29,10 +29,10 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
   # Grabs each 'box''s div element
   results = search(term=f'{query.lower()} site:leafly.com/strains', advanced=True)
   for result in results:
-    
+    print(result.title)
     
     if query.lower() in result.title:
-      print(result.title)
+      
       return result.url
       # If the strain name matches the query exactly (except case)
   return results[0].url
