@@ -47,7 +47,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
 async def leaflyresultmessage(ctx, link):
 
   url = link
-  link = Request(url=link, headers={'Accept': 'text/html','User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 OPR/79.0.4143.50'})
+  link = Request(url=link, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 OPR/79.0.4143.50'})
   try:
     info = urlopen(link)  # Grab html
   except HTTPError as e:
