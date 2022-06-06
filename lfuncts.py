@@ -38,7 +38,7 @@ async def leaflyinfo(query):  # Gets search results and returns message embed
       
       return result.url
       # If the strain name matches the query exactly (except case)
-  print(rslt)
+  
   return rslt
   # If the above three fail, just return the first result
 
@@ -69,7 +69,7 @@ async def leaflyresultmessage(ctx, link):
   # newEmbed.add_field(name='Description:', value=desc)
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
-  print(bssearch)
+  
   if not bssearch.find(class_='text-xs font-bold py-sm'):
     indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
