@@ -114,55 +114,24 @@ async def leaflyresultmessage(ctx, link):
     else:
       flavs = '(Unknown)'
     newEmbed.add_field(name='__Flavors__', value=flavors)
-
-    effecttitles = bssearch.find(class_='jsx-3739643243 strain-effects-new').find(class_='react-tabs__tab-list')
-    if effecttitles != None:
-      effecttitles = effecttitles.find_all(class_='react-tabs__tab')
-      effects = bssearch.find(class_='jsx-3739643243 react-tabs__tab-panel-container mt-md react-tabs-padding').find_all(class_='react-tabs__tab-panel')
-      for effect in effects:
-        thiseffect = effect.find_all(class_='jsx-2869020097 font-bold font-headers text-sm')
-        effectnames = ''
-        for e in thiseffect:
-          effectnames+= e.get_text() + '\n'
-        newEmbed.add_field(name='__'+effecttitles[effects.index(effect)].get_text()+'__', value=effectnames)
-    # feelraw = None
-    # negraw = None
-    # useraw = None
-    # if bssearch.find(id='react-tabs-149265') != None:
-    #   feelraw = bssearch.find(id='react-tabs-149265').find_all(class_='jsx-2869020097 font-bold font-headers text-sm')
-    # if bssearch.find(id='react-tabs-149267') != None:
-    #   negraw = bssearch.find(id='react-tabs-149267').find_all(class_='jsx-2869020097 font-bold font-headers text-sm')
-    # if bssearch.find(id='react-tabs-149269') != None:
-    #   useraw = bssearch.find(id='react-tabs-149269').find_all(class_='jsx-2869020097 font-bold font-headers text-sm')
-    # feelings = ''
-    # negs = ''
-    # uses = ''
-    # if feelraw != None:
-    #   for feeling in feelraw:
-    #     feelings = feelings + feeling.get_text() + '\n'
-    # else:
-    #   feelings = '(Unknown)'
-    # if negraw != None:
-    #   for neg in negraw:
-    #     negs = negs + neg.get_text() + '\n'
-    # else:
-    #   negs = '(Unknown)'
-    # if useraw != None:
-    #   for use in useraw:
-    #     uses = uses + use.get_text() + '\n'
-    # else:
-    #   uses = '(Unknown)'
-
-    # newEmbed.add_field(name='__Feelings__', value=feelings)
-    # newEmbed.add_field(name='__Helps with__', value=uses)
-    # newEmbed.add_field(name='__Negatives__', value=negs)
-    
-    # genetics = bssearch.find_all(class_='jsx-1789851897 flex flex-col md:flex-row pt-xl')
-    # parents = ''
-    # for gen in genetics:
-    #   parents = parents + gen.div.div.get_text() + '\n'
-    # newEmbed.add_field(name='__Parents__', value=parents)
-
+    try:
+      feelings = bssearch.find(id='Feelings-tab').find_all(p)
+      effects = ''
+      for feeling in feelings:
+        effects += feeling.get_text() + '\n'
+      effects.strip('\n')
+      newEmbed.add_field(name='__Feelings__', value=effects)
+    except Exception:
+      pass
+    try:
+      negatives = bssearch.find(id='Negatives-tab').find_all(p)
+      effects = ''
+      for neg in negatives:
+        effects += neg.get_text() + '\n'
+      effects.strip('\n')
+      newEmbed.add_field(name='__Negatives__', value=effects)
+    except Exception:
+      pass
   return newEmbed
 
 
