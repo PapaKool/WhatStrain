@@ -70,7 +70,7 @@ async def leaflyresultmessage(ctx, link):
   # newEmbed.add_field(name='Description:', value=desc)
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
-
+  print(bssearch)
   if not bssearch.find(class_='text-xs font-bold py-sm'):
     indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
