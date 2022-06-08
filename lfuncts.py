@@ -53,7 +53,7 @@ async def leaflyresultmessage(ctx, link):
   except HTTPError as e:
     info = e.read()
   bssearch = bs(info, 'html.parser') # Converts to BeautifulSoup object
-
+  print(bssearch)
   name = bssearch.find('h1', attrs={'itemprop':'name'}).get_text()
   aka = bssearch.find('h2', attrs={'itemprop':'name'})
   try:
