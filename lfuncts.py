@@ -83,7 +83,8 @@ async def leaflyresultmessage(ctx, link):
     newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
     
     cannabinoids = [] 
-    cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl'):
+    cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl')
+    
     if len(cannabinoids) >= 1:
       newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0]+'__', value=cannabinoids[0].get_text().split()[1])
     if len(cannabinoids) >= 2:
