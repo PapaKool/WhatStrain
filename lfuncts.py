@@ -70,7 +70,7 @@ async def leaflyresultmessage(ctx, link):
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
   
-  if not bssearch.find('meta', 'content'='ve smoked, dabbed, or otherwise enjoyed this strain'):
+  if not bssearch.find('meta', content='ve smoked, dabbed, or otherwise enjoyed this strain'):
     indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
     # bar = '`'
