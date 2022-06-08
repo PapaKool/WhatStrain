@@ -54,8 +54,8 @@ async def leaflyresultmessage(ctx, link):
     info = e.read()
   bssearch = bs(info, 'html.parser') # Converts to BeautifulSoup object
 
-  name = bssearch.find('h1', itemprop='name').get_text()
-  aka = bssearch.find('h2', itemprop='name')
+  name = bssearch.find('h1', attrs={'itemprop':'name'}).get_text()
+  aka = bssearch.find('h2', attrs={'itemprop':'name'})
   try:
     aka = aka.get_text().replace('aka','').strip()
     desc = '*(aka:* ***' + aka + '*** *)*\n\n' + '__**Description:**__\n\n' + bssearch.find('div', itemprop='description').get_text()
@@ -70,7 +70,7 @@ async def leaflyresultmessage(ctx, link):
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
   
-  if not bssearch.find('meta', content='ve smoked, dabbed, or otherwise enjoyed this strain'):
+  if not bssearch.find('meta', attrs = {'content':'ve smoked, dabbed, or otherwise enjoyed this strain'}):
     indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
     # bar = '`'
