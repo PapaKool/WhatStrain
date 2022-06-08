@@ -95,7 +95,11 @@ async def _leafly(ctx, strain:str):
     return
   strain = strain.strip()
   print(strain)
-  searchresult = await leaflyinfo(strain)
+  try:
+    searchresult = await leaflyinfo(strain)
+  except HTTPError:
+    await ctx.send('Oops, it looks like Google\'s stupid servers are overloaded. Guck Foogle.')
+    return
   if searchresult is None:
     await ctx.send('Sorry, I couldn\'t find any strains matching *\"'+strain+'\"*')
     return
