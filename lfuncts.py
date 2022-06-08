@@ -71,17 +71,20 @@ async def leaflyresultmessage(ctx, link):
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
   
   if bssearch.find(string='ve smoked, dabbed, or otherwise enjoyed this strain') != None:
-    indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
+    try:
+      indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
-    # bar = '`'
-    # for x in range(int(indicapercent * 38 / 100)):
-    #   bar = bar + '█'
-    # for x in range(int((100 - indicapercent) * 38 / 100)):
-    #   bar = bar + '∙'
-    # bar = bar + '`'
-    # newEmbed.add_field(name='Indica <━━━━━━━━━━━━━━━> Sativa', value=bar, inline=False)
-    newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
-    
+      # bar = '`'
+      # for x in range(int(indicapercent * 38 / 100)):
+      #   bar = bar + '█'
+      # for x in range(int((100 - indicapercent) * 38 / 100)):
+      #   bar = bar + '∙'
+      # bar = bar + '`'
+      # newEmbed.add_field(name='Indica <━━━━━━━━━━━━━━━> Sativa', value=bar, inline=False)
+      newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
+    except Exception as e:
+      print(e)
+      pass
     cannabinoids = [] 
     cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl')
     
@@ -121,7 +124,8 @@ async def leaflyresultmessage(ctx, link):
         effects += feeling.get_text() + '\n'
       effects.strip('\n')
       newEmbed.add_field(name='__Feelings__', value=effects)
-    except Exception:
+    except Exception as e:
+      print(e)
       pass
     try:
       negatives = bssearch.find(id='Negatives-tab').find_all(p)
@@ -130,7 +134,8 @@ async def leaflyresultmessage(ctx, link):
         effects += neg.get_text() + '\n'
       effects.strip('\n')
       newEmbed.add_field(name='__Negatives__', value=effects)
-    except Exception:
+    except Exception as e:
+      print(e)
       pass
   return newEmbed
 
