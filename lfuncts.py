@@ -70,73 +70,73 @@ async def leaflyresultmessage(ctx, link):
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
   
-  if bssearch.find(string='ve smoked, dabbed, or otherwise enjoyed this strain') != None:
-    try:
-      indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
- 
-      # bar = '`'
-      # for x in range(int(indicapercent * 38 / 100)):
-      #   bar = bar + '█'
-      # for x in range(int((100 - indicapercent) * 38 / 100)):
-      #   bar = bar + '∙'
-      # bar = bar + '`'
-      # newEmbed.add_field(name='Indica <━━━━━━━━━━━━━━━> Sativa', value=bar, inline=False)
-      newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
-    except Exception as e:
-      print(e)
-      pass
-    cannabinoids = [] 
-    cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl')
-    
-    if len(cannabinoids) >= 1:
-      newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0]+'__', value=cannabinoids[0].get_text().split()[1])
-    if len(cannabinoids) >= 2:
-      newEmbed.add_field(name='__'+cannabinoids[1].get_text().split()[0]+'__', value=cannabinoids[1].get_text().split()[1])
-    if len(cannabinoids) >= 3:
-      newEmbed.add_field(name='__'+cannabinoids[2].get_text().split()[0]+'__', value=cannabinoids[2].get_text().split()[1])
-    if len(cannabinoids) >= 4:
-      newEmbed.add_field(name='__'+cannabinoids[3].get_text().split()[0]+'__', value=cannabinoids[3].get_text().split()[1])
+  # if bssearch.find(string='ve smoked, dabbed, or otherwise enjoyed this strain') != None:
+  try:
+    indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
 
-    try:
-      domterp = bssearch.find('a', attrs={'aria-label':'Terpene Information'}).get_text()
-      newEmbed.add_field(name='__Dominant Terp__', value=domterp)
-    except Exception as e:
-      print(e)
-      pass
-    possibleflavs=['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blueberry', 'Blue Cheese', 'Butter', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel',
-                   'Earthy', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Menthol', 'Mint', 'Nutty', 'Orange', 'Peach',
-                   'Pear', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent', 'Rose', 'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea',
-                   'Tobacco', 'Tree fruit', 'Tropical', 'Vanilla', 'Violet', 'Woody']
-    flavs = ''
-    for res in bssearch.find_all('a', href='/strains/lists/effect/'):
-      if res.get_text() in possibleflavs:
-        flavs += f'{res.get_text()}\n'
-        
-    if flavs != '':
-      flavs.strip('\n')
-      newEmbed.add_field(name='__Flavors__', value=flavs)
-      
-      
-    try:
-      feelings = bssearch.find(id='Feelings-tab').find_all(p)
-      effects = ''
-      for feeling in feelings:
-        effects += feeling.get_text() + '\n'
-      effects.strip('\n')
-      newEmbed.add_field(name='__Feelings__', value=effects)
-    except Exception as e:
-      print(e)
-      pass
-    try:
-      negatives = bssearch.find(id='Negatives-tab').find_all(p)
-      effects = ''
-      for neg in negatives:
-        effects += neg.get_text() + '\n'
-      effects.strip('\n')
-      newEmbed.add_field(name='__Negatives__', value=effects)
-    except Exception as e:
-      print(e)
-      pass
+    # bar = '`'
+    # for x in range(int(indicapercent * 38 / 100)):
+    #   bar = bar + '█'
+    # for x in range(int((100 - indicapercent) * 38 / 100)):
+    #   bar = bar + '∙'
+    # bar = bar + '`'
+    # newEmbed.add_field(name='Indica <━━━━━━━━━━━━━━━> Sativa', value=bar, inline=False)
+    newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
+  except Exception as e:
+    print(e)
+    pass
+  cannabinoids = [] 
+  cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl')
+
+  if len(cannabinoids) >= 1:
+    newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0]+'__', value=cannabinoids[0].get_text().split()[1])
+  if len(cannabinoids) >= 2:
+    newEmbed.add_field(name='__'+cannabinoids[1].get_text().split()[0]+'__', value=cannabinoids[1].get_text().split()[1])
+  if len(cannabinoids) >= 3:
+    newEmbed.add_field(name='__'+cannabinoids[2].get_text().split()[0]+'__', value=cannabinoids[2].get_text().split()[1])
+  if len(cannabinoids) >= 4:
+    newEmbed.add_field(name='__'+cannabinoids[3].get_text().split()[0]+'__', value=cannabinoids[3].get_text().split()[1])
+
+  try:
+    domterp = bssearch.find('a', attrs={'aria-label':'Terpene Information'}).get_text()
+    newEmbed.add_field(name='__Dominant Terp__', value=domterp)
+  except Exception as e:
+    print(e)
+    pass
+  possibleflavs=['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blueberry', 'Blue Cheese', 'Butter', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel',
+                 'Earthy', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Menthol', 'Mint', 'Nutty', 'Orange', 'Peach',
+                 'Pear', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent', 'Rose', 'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea',
+                 'Tobacco', 'Tree fruit', 'Tropical', 'Vanilla', 'Violet', 'Woody']
+  flavs = ''
+  for res in bssearch.find_all('a', href='/strains/lists/effect/'):
+    if res.get_text() in possibleflavs:
+      flavs += f'{res.get_text()}\n'
+
+  if flavs != '':
+    flavs.strip('\n')
+    newEmbed.add_field(name='__Flavors__', value=flavs)
+
+
+  try:
+    feelings = bssearch.find(id='Feelings-tab').find_all(p)
+    effects = ''
+    for feeling in feelings:
+      effects += feeling.get_text() + '\n'
+    effects.strip('\n')
+    newEmbed.add_field(name='__Feelings__', value=effects)
+  except Exception as e:
+    print(e)
+    pass
+  try:
+    negatives = bssearch.find(id='Negatives-tab').find_all(p)
+    effects = ''
+    for neg in negatives:
+      effects += neg.get_text() + '\n'
+    effects.strip('\n')
+    newEmbed.add_field(name='__Negatives__', value=effects)
+  except Exception as e:
+    print(e)
+    pass
   return newEmbed
 
 
