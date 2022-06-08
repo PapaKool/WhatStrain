@@ -70,7 +70,7 @@ async def leaflyresultmessage(ctx, link):
   newEmbed.set_thumbnail(url=weedpic)
   newEmbed.set_footer(text='(Strain information courtesy Leafly.com)')
   
-  if not bssearch.find(class_='text-xs font-bold py-sm'):
+  if not bssearch.find('meta', 'content'='ve smoked, dabbed, or otherwise enjoyed this strain'):
     indicapercent = int(bssearch.find(class_='bg-default rounded-full')['style'].split('width:')[1].split('.')[0])
  
     # bar = '`'
@@ -81,8 +81,9 @@ async def leaflyresultmessage(ctx, link):
     # bar = bar + '`'
     # newEmbed.add_field(name='Indica <━━━━━━━━━━━━━━━> Sativa', value=bar, inline=False)
     newEmbed.add_field(name='__Type__', value=str(indicapercent)+'% Indica')
-
-    cannabinoids = bssearch.find_all(class_='jsx-1012626707 text-xs rounded flex items-center mr-xl')
+    
+    cannabinoids = [] 
+    cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl'):
     if len(cannabinoids) >= 1:
       newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0]+'__', value=cannabinoids[0].get_text().split()[1])
     if len(cannabinoids) >= 2:
@@ -92,28 +93,26 @@ async def leaflyresultmessage(ctx, link):
     if len(cannabinoids) >= 4:
       newEmbed.add_field(name='__'+cannabinoids[3].get_text().split()[0]+'__', value=cannabinoids[3].get_text().split()[1])
 
-
-    domterp = bssearch.find(class_='jsx-221743974 text-sm font-bold') 
-    domterptype = bssearch.find(class_='jsx-221743974 text-sm font-bold text-grey')
-    terps = bssearch.find_all(class_='jsx-221743974 flex items-center')
     try:
-      terpenes = '**' + domterp.get_text() + ' ' + domterptype.get_text() + '**'
-      for terp in terps:
-        terpenes = terpenes + '\n' + terp.get_text().replace('(', ' (')
-    except AttributeError:
+      domterp = bssearch.find('a', attrs={'aria-label':'Terpene Information'}).get_text()
+      newEmbed.add_field(name='__Dominant Terp__', value=domterp)
+    except Exception as e:
+      print(e)
       pass
-    if domterp != None:
-      newEmbed.add_field(name='__Terpenes__', value=terpenes)
-
-
-    flavs = bssearch.find_all(class_='jsx-1497574014 font-bold font-headers text-sm')
-    flavors = ''
-    if flavs != None:
-      for flav in flavs:
-        flavors = flavors + flav.get_text() + '\n'
-    else:
-      flavs = '(Unknown)'
-    newEmbed.add_field(name='__Flavors__', value=flavors)
+    possibleflavs=['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blueberry', 'Blue Cheese', 'Butter', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel',
+                   'Earthy', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Menthol', 'Mint', 'Nutty', 'Orange', 'Peach',
+                   'Pear', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent', 'Rose', 'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea',
+                   'Tobacco', 'Tree fruit', 'Tropical', 'Vanilla', 'Violet', 'Woody']
+    flavs = ''
+    for res in bssearch.find_all('a', href='/strains/lists/effect/'):
+      if res.get_text() in possibleflavs:
+        flavs += f'{res.get_text()}\n'
+        
+    if flavs != '':
+      flavs.strip('\n')
+      newEmbed.add_field(name='__Flavors__', value=flavs)
+      
+      
     try:
       feelings = bssearch.find(id='Feelings-tab').find_all(p)
       effects = ''
