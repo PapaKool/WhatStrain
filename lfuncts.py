@@ -89,13 +89,13 @@ async def leaflyresultmessage(ctx, link):
   cannabinoids = bssearch.find_all('span', class_='text-xs rounded flex items-center mr-xl')
 
   if len(cannabinoids) >= 1:
-    newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0]+'__', value=cannabinoids[0].get_text().split()[1])
+    newEmbed.add_field(name='__'+cannabinoids[0].get_text().split()[0].strip('Loading...')+'__', value=cannabinoids[0].get_text().split()[1])
   if len(cannabinoids) >= 2:
-    newEmbed.add_field(name='__'+cannabinoids[1].get_text().split()[0]+'__', value=cannabinoids[1].get_text().split()[1])
+    newEmbed.add_field(name='__'+cannabinoids[1].get_text().split()[0].strip('Loading...')+'__', value=cannabinoids[1].get_text().split()[1])
   if len(cannabinoids) >= 3:
-    newEmbed.add_field(name='__'+cannabinoids[2].get_text().split()[0]+'__', value=cannabinoids[2].get_text().split()[1])
+    newEmbed.add_field(name='__'+cannabinoids[2].get_text().split()[0].strip('Loading...')+'__', value=cannabinoids[2].get_text().split()[1])
   if len(cannabinoids) >= 4:
-    newEmbed.add_field(name='__'+cannabinoids[3].get_text().split()[0]+'__', value=cannabinoids[3].get_text().split()[1])
+    newEmbed.add_field(name='__'+cannabinoids[3].get_text().split()[0].strip('Loading...')+'__', value=cannabinoids[3].get_text().split()[1])
 
   try:
     domterp = bssearch.find('a', attrs={'aria-label':'Terpene Information'}).get_text()
